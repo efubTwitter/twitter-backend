@@ -31,13 +31,13 @@ public class TweetResponseDto {
     private UserResponseDto writer;
     private String content;
     private LocalDateTime createdDate;
-    private List<Heart> heartList;
+    private Integer heartCount;
 
     public TweetResponseDto(Tweet tweet) {
         this.tweetId = tweet.getTweetId();
         this.writer = new UserResponseDto(tweet.getWriter());
         this.content = tweet.getContent();
         this.createdDate = tweet.getCreatedDate();
-        this.heartList = tweet.getHeartList();
+        this.heartCount = tweet.getHeartList().size();
     }
 }
