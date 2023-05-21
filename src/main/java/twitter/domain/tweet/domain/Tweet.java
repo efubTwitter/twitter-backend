@@ -37,7 +37,11 @@ public class Tweet extends BaseTimeEntity {
         this.content = content;
     }
 
-    public void updateHeart(Heart heart){
+    public void addHeart(Heart heart){
         this.heartList.add(heart);
+    }
+
+    public void deleteHeart(Heart heart){
+        this.heartList.remove(heart);
     }
 }

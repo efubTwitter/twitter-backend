@@ -38,7 +38,7 @@ public class HeartService {
                 .build()
         );
 
-        tweet.updateHeart(heart);
+        tweet.addHeart(heart);
     }
 
     public List<Heart> findHeartList(Long tweetId){
@@ -52,6 +52,9 @@ public class HeartService {
 
         Heart heart=heartRepository.findByUserAndTweet(user, tweet)
                 .orElseThrow(()->new RuntimeException("마음을 누르지 않았습니다."));
+
+        tweet.deleteHeart(heart);
+
         heartRepository.delete(heart);
     }
 
