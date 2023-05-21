@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class User extends BaseTimeEntity {
 
     @Id
-    @Column(name = "user_id", updatable = false, length = 15)
+    @Column(name = "user_id", updatable = false, length = 30)
     private String userId;
 
     @Column(nullable = false, length = 20)
