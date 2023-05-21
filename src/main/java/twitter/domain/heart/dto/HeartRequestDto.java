@@ -1,4 +1,4 @@
-package twitter.domain.like.dto;
+package twitter.domain.heart.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor
-public class LikeRequestDto {
+public class HeartRequestDto {
     @NotNull
     private Long tweetId;
 }

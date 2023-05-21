@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import twitter.domain.like.domain.Like;
+import twitter.domain.heart.domain.Heart;
 import twitter.domain.user.domain.User;
 import twitter.global.entity.BaseTimeEntity;
 
@@ -29,7 +29,7 @@ public class Tweet extends BaseTimeEntity {
     private String content;
 
     @OneToMany(mappedBy = "tweet", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Like> likeList = new ArrayList<>();
+    private List<Heart> heartList = new ArrayList<>();
 
     @Builder
     public Tweet(User writer, String content) {
@@ -37,7 +37,7 @@ public class Tweet extends BaseTimeEntity {
         this.content = content;
     }
 
-    public void updateLike(Like like){
-        this.likeList.add(like);
+    public void updateHeart(Heart heart){
+        this.heartList.add(heart);
     }
 }

@@ -1,4 +1,4 @@
-package twitter.domain.like.domain;
+package twitter.domain.heart.domain;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -14,11 +14,11 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Like extends BaseTimeEntity {
+public class Heart extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "like_id")
+    @Column(name = "heart_id")
     private Long id;
 
     @ManyToOne
@@ -32,7 +32,7 @@ public class Like extends BaseTimeEntity {
     private User user;
 
     @Builder
-    public Like(Tweet tweet, User user) {
+    public Heart(Tweet tweet, User user) {
         this.tweet = tweet;
         this.user = user;
     }

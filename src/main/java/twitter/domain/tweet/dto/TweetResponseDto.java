@@ -2,7 +2,7 @@ package twitter.domain.tweet.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import twitter.domain.like.domain.Like;
+import twitter.domain.heart.domain.Heart;
 import twitter.domain.tweet.domain.Tweet;
 import twitter.domain.user.dto.UserResponseDto;
 
@@ -31,13 +31,13 @@ public class TweetResponseDto {
     private UserResponseDto writer;
     private String content;
     private LocalDateTime createdDate;
-    private List<Like> likeList;
+    private List<Heart> heartList;
 
     public TweetResponseDto(Tweet tweet) {
         this.tweetId = tweet.getTweetId();
         this.writer = new UserResponseDto(tweet.getWriter());
         this.content = tweet.getContent();
         this.createdDate = tweet.getCreatedDate();
-        this.likeList = tweet.getLikeList();
+        this.heartList = tweet.getHeartList();
     }
 }

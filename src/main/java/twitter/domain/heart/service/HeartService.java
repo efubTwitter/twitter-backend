@@ -1,15 +1,13 @@
-package twitter.domain.like.service;
+package twitter.domain.heart.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import twitter.domain.like.domain.Like;
-import twitter.domain.like.repository.LikeRepository;
+import twitter.domain.heart.domain.Heart;
+import twitter.domain.heart.repository.HeartRepository;
 import twitter.domain.tweet.domain.Tweet;
-import twitter.domain.tweet.repository.TweetRepository;
 import twitter.domain.tweet.service.TweetService;
 import twitter.domain.user.domain.User;
-import twitter.domain.user.repository.UserRepository;
 import twitter.domain.user.service.UserService;
 
 import java.util.List;
@@ -17,47 +15,48 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class LikeService {
+public class HeartService {
 
-    private final LikeRepository likeRepository;
+    private final HeartRepository heartRepository;
     private final TweetService tweetService;
     private final UserService userService;
 
-    public void addLike(String userId, Long tweetId){
+    public void addHeart(String userId, Long tweetId){
         User user = userService.findUser(userId);
         Tweet tweet = tweetService.findTweet(tweetId);
 
         // 한 유저가 한 게시물에 대해 한 번만 마음을 누를 수 있도록 제한
-        if(likeRepository.existsByUserAndTweet(user, tweet)){
-            removeLike(userId, tweetId);
+        if(heartRepository.existsByUserAndTweet(user, tweet)){
+            removeHeart(userId, tweetId);
             return;
         }
 
-        Like like = likeRepository.save(Like.builder()
+        Heart heart = heartRepository.save(
+                Heart.builder()
                 .user(user)
                 .tweet(tweet)
                 .build()
         );
 
-        tweet.updateLike(like);
+        tweet.updateHeart(heart);
     }
 
-    public List<Like> findLikeList(Long tweetId){
+    public List<Heart> findHeartList(Long tweetId){
         Tweet tweet = tweetService.findTweet(tweetId);
-        return likeRepository.findAllByTweet(tweet);
+        return heartRepository.findAllByTweet(tweet);
     }
 
-    public void removeLike(String userId, Long tweetId){
+    public void removeHeart(String userId, Long tweetId){
         User user = userService.findUser(userId);
         Tweet tweet = tweetService.findTweet(tweetId);
 
-        Like like=likeRepository.findByUserAndTweet(user, tweet)
+        Heart heart=heartRepository.findByUserAndTweet(user, tweet)
                 .orElseThrow(()->new RuntimeException("마음을 누르지 않았습니다."));
-        likeRepository.delete(like);
+        heartRepository.delete(heart);
     }
 
     @Transactional(readOnly = true)
-    public Long countLike(Tweet tweet){
-        return likeRepository.countByTweet(tweet);
+    public Long countHeart(Tweet tweet){
+        return heartRepository.countByTweet(tweet);
     }
 }
