@@ -4,10 +4,13 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import twitter.domain.like.domain.Like;
 import twitter.domain.user.domain.User;
 import twitter.global.entity.BaseTimeEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,6 +27,9 @@ public class Tweet extends BaseTimeEntity {
 
     @Column(nullable = false, length = 140)
     private String content;
+
+    @OneToMany(mappedBy = "tweet", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Like> likeList = new ArrayList<>();
 
     @Builder
     public Tweet(User writer, String content) {
