@@ -41,9 +41,9 @@ public class HeartService {
         tweet.addHeart(heart);
     }
 
-    public List<Heart> findHeartList(Long tweetId){
-        Tweet tweet = tweetService.findTweet(tweetId);
-        return heartRepository.findAllByTweet(tweet);
+    public List<Heart> findHeartListByUser(String userId){
+        User user = userService.findUser(userId);
+        return heartRepository.findAllByUser(user);
     }
 
     public void removeHeart(String userId, Long tweetId){
@@ -56,10 +56,5 @@ public class HeartService {
         tweet.deleteHeart(heart);
 
         heartRepository.delete(heart);
-    }
-
-    @Transactional(readOnly = true)
-    public Long countHeart(Tweet tweet){
-        return heartRepository.countByTweet(tweet);
     }
 }

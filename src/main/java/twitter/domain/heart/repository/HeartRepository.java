@@ -13,7 +13,5 @@ public interface HeartRepository extends JpaRepository<Heart, Long> {
 
     Optional<Heart> findByUserAndTweet(User user, Tweet tweet);
 
-    Long countByTweet(Tweet tweet);
-
-    List<Heart> findAllByTweet(Tweet tweet);
+    List<Heart> findAllByUser(User user);
 }
