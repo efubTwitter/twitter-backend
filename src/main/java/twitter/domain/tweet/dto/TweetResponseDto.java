@@ -1,19 +1,23 @@
 package twitter.domain.tweet.dto;
 
-
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import twitter.domain.tweet.domain.Tweet;
+import twitter.domain.user.dto.UserResponseDto;
 
 import java.time.LocalDateTime;
 
 /*
 {
-		"writerPhoto" : "",
-		"writerName" : "마포농수산쎈타",
-		"writerId" : "mapo_nongsusan",
-        "content" : "밥 챙겨먹어요..행복하세요,.저도 행복할게요..",
+		"writer" : {
+			"id" : "chlove_u",
+            "profilePhoto": "",
+            "headerPhoto": "",
+            "name": "문화재청",
+            "bio" : "경산토기를 쓴 문화재청 공식 트위터입니다.",
+            "joinedDate": "2011-03-24T01:33:40:000000"
+		},
+		"content" : "첫 트윗",
 		"createdDate" : "2023-05-16T22:48:33:000000",
 		"tweetId" : 1
 }
@@ -21,19 +25,15 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 public class TweetResponseDto {
-    private String writerPhoto;
-    private String writerName;
-    private String writerId;
+    private UserResponseDto writer;
     private String content;
     private LocalDateTime createdDate;
-    private Long id;
+    private Long tweetId;
 
     public TweetResponseDto(Tweet tweet) {
-        this.writerPhoto = tweet.getWriter().getProfilePhoto();
-        this.writerName = tweet.getWriter().getName();
-        this.writerId = tweet.getWriter().getUserId();
+        this.writer = new UserResponseDto(tweet.getWriter());
         this.content = tweet.getContent();
         this.createdDate = tweet.getCreatedDate();
-        this.id = tweet.getTweetId();
+        this.tweetId = tweet.getTweetId();
     }
 }
