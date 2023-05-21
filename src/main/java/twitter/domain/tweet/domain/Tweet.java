@@ -36,4 +36,8 @@ public class Tweet extends BaseTimeEntity {
         this.writer = writer;
         this.content = content;
     }
+
+    public void updateLike(Like like){
+        this.likeList.add(like);
+    }
 }

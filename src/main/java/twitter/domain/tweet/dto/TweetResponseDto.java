@@ -2,10 +2,12 @@ package twitter.domain.tweet.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import twitter.domain.like.domain.Like;
 import twitter.domain.tweet.domain.Tweet;
 import twitter.domain.user.dto.UserResponseDto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /*
 {
@@ -25,15 +27,17 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 public class TweetResponseDto {
+    private Long tweetId;
     private UserResponseDto writer;
     private String content;
     private LocalDateTime createdDate;
-    private Long tweetId;
+    private List<Like> likeList;
 
     public TweetResponseDto(Tweet tweet) {
+        this.tweetId = tweet.getTweetId();
         this.writer = new UserResponseDto(tweet.getWriter());
         this.content = tweet.getContent();
         this.createdDate = tweet.getCreatedDate();
-        this.tweetId = tweet.getTweetId();
+        this.likeList = tweet.getLikeList();
     }
 }

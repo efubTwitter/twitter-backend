@@ -33,11 +33,13 @@ public class LikeService {
             return;
         }
 
-        likeRepository.save(Like.builder()
+        Like like = likeRepository.save(Like.builder()
                 .user(user)
                 .tweet(tweet)
                 .build()
         );
+
+        tweet.updateLike(like);
     }
 
     public List<Like> findLikeList(Long tweetId){
