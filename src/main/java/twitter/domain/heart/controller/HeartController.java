@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import twitter.domain.heart.dto.HeartRequestDto;
+import twitter.domain.heart.dto.HeartResponseDto;
 import twitter.domain.heart.service.HeartService;
 
 import javax.validation.Valid;
@@ -17,8 +18,13 @@ public class HeartController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public void heartAdd(@PathVariable String userId, @RequestBody @Valid HeartRequestDto requestDto){
-        heartService.addHeart(userId, requestDto.getTweetId());
+    public HeartResponseDto heartClick(@PathVariable String userId, @RequestBody @Valid HeartRequestDto requestDto){
+        heartService.clickHeart(userId, requestDto.getTweetId());
+
+        if(heartService.isHeart(userId, requestDto.getTweetId()))
+            return new HeartResponseDto(userId, requestDto.getTweetId(), true);
+        else
+            return new HeartResponseDto(userId, requestDto.getTweetId(), false);
     }
 
     @DeleteMapping("/{tweetId}")

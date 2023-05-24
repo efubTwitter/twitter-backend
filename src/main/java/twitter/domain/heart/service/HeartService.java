@@ -21,7 +21,7 @@ public class HeartService {
     private final TweetService tweetService;
     private final UserService userService;
 
-    public void addHeart(String userId, Long tweetId){
+    public void clickHeart(String userId, Long tweetId){
         User user = userService.findUser(userId);
         Tweet tweet = tweetService.findTweet(tweetId);
 
@@ -56,5 +56,11 @@ public class HeartService {
         tweet.deleteHeart(heart);
 
         heartRepository.delete(heart);
+    }
+
+    public Boolean isHeart(String userId, Long tweetId){
+        User user = userService.findUser(userId);
+        Tweet tweet = tweetService.findTweet(tweetId);
+        return heartRepository.existsByUserAndTweet(user, tweet);
     }
 }
