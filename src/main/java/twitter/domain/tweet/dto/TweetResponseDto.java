@@ -7,10 +7,12 @@ import twitter.domain.tweet.domain.Tweet;
 import twitter.domain.user.dto.UserResponseDto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /*
 {
+        "tweetId" : 1,
 		"writer" : {
 			"id" : "chlove_u",
             "profilePhoto": "",
@@ -21,7 +23,11 @@ import java.util.List;
 		},
 		"content" : "첫 트윗",
 		"createdDate" : "2023-05-16T22:48:33:000000",
-		"tweetId" : 1
+		"heartUserList" : {
+		    "efubteam1",
+		    "yejikim",
+		    "juheelee"
+		}
 }
  */
 @Getter
@@ -31,13 +37,21 @@ public class TweetResponseDto {
     private UserResponseDto writer;
     private String content;
     private LocalDateTime createdDate;
-    private Integer heartCount;
+    private List<String> heartUserList = new ArrayList<>();
 
     public TweetResponseDto(Tweet tweet) {
         this.tweetId = tweet.getTweetId();
         this.writer = new UserResponseDto(tweet.getWriter());
         this.content = tweet.getContent();
         this.createdDate = tweet.getCreatedDate();
-        this.heartCount = tweet.getHeartList().size();
+        this.heartUserList = getUserList(tweet);
+    }
+
+    public static List<String> getUserList(Tweet tweet){
+        List<String> list = new ArrayList<>();
+        for(Heart heart : tweet.getHeartList()){
+            list.add(heart.getUser().getUserId());
+        }
+        return list;
     }
 }
