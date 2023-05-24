@@ -3,10 +3,7 @@ package twitter.domain.follow.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 import twitter.domain.follow.domain.Follow;
-import twitter.domain.follow.dto.FollowListResponseDto;
-import twitter.domain.follow.dto.FollowRequestDto;
 import twitter.domain.follow.repository.FollowRepository;
 import twitter.domain.user.domain.User;
 import twitter.domain.user.service.UserService;
@@ -20,7 +17,7 @@ public class FollowService {
     private final FollowRepository followRepository;
     private final UserService userService;
 
-    public String addFollow(String userId, String followingId){
+    public String clickFollow(String userId, String followingId){
         User follower = userService.findUser(userId);
         User following = userService.findUser(followingId);
 

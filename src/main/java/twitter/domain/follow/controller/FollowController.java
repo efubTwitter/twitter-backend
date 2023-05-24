@@ -21,8 +21,8 @@ public class FollowController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public String followAdd(@PathVariable final String userId, @RequestBody final FollowRequestDto requestDto) {
-        return followService.addFollow(userId, requestDto.getFollowingId());
+    public String followClick(@PathVariable final String userId, @RequestBody final FollowRequestDto requestDto) {
+        return followService.clickFollow(userId, requestDto.getFollowingId());
     }
 
     // 팔로워 목록 조회
